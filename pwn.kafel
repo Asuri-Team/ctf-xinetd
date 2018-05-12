@@ -1,0 +1,9 @@
+POLICY pwn {
+    ALLOW { 
+        write, execve, brk, access, mmap, open, newfstat, 
+        close, read, mprotect, arch_prctl, munmap, getuid, 
+        getgid, getpid, rt_sigaction, geteuid, getppid, getcwd, 
+        getegid, ioctl, fcntl, newstat, clone, wait4, rt_sigreturn, 
+        exit_group, openat 
+    } 
+} USE pwn DEFAULT KILL

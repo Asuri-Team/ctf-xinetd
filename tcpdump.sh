@@ -2,6 +2,7 @@
 
 if [ -z $TCPDUMP_ENABLE ]; then
     echo "Set TCPDUMP_ENABLE to enable packet capture."
+    sleep 1d
     exit 0
 fi
 
