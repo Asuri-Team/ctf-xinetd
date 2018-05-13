@@ -3,14 +3,14 @@ FROM phusion/baseimage:0.9.22 as build-stage
 WORKDIR /opt
 
 RUN apt-get update && apt-get install -y wget bison flex build-essential unzip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*  
+    && apt-get build-dep -y xinetd && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*  
 
 
 RUN wget https://github.com/google/kafel/archive/master.zip && unzip master.zip && rm master.zip && mv kafel-master kafel && \
     cd kafel && make 
     
 RUN wget https://github.com/Asuri-Team/xinetd-kafel/archive/master.zip && unzip master.zip && rm master.zip && mv xinetd-kafel-master xinetd && \
-    cd xinetd && ./configure --prefix=/usr --with-kafel=/opt/kafel && make 
+    cd xinetd && ./configure --prefix=/usr --with-kafel=/opt/kafel --with-loadavg --with-libwrap && make 
 
 
 
@@ -18,7 +18,7 @@ FROM phusion/baseimage:0.9.22
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-RUN apt-get update && apt-get install -y wget netbase bison flex tcpdump make && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+RUN apt-get update && apt-get install -y wget netbase bison flex tcpdump make && apt-get build-dep -y xinetd && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 COPY --from=build-stage /opt/xinetd /opt/xinetd
 
