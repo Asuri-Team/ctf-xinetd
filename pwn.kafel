@@ -1,9 +1,11 @@
 POLICY pwn {
-    ALLOW { 
-        write, execve, brk, access, mmap, open, newfstat, 
-        close, read, mprotect, arch_prctl, munmap, getuid, 
-        getgid, getpid, rt_sigaction, geteuid, getppid, getcwd, 
-        getegid, ioctl, fcntl, newstat, clone, wait4, rt_sigreturn, 
-        exit_group, openat 
-    } 
+    ALLOW {
+        write, execve, brk, access, mmap, open, newfstat,
+        close, read, mprotect, arch_prctl, munmap, getuid,
+        getgid, getpid, rt_sigaction, geteuid, getppid, getcwd,
+        getegid, ioctl, fcntl, newstat, clone, wait4, rt_sigreturn,
+        exit_group, openat, setpgid, getpgrp, fadvise64, writev,
+        rt_sigprocmask, getrlimit, statfs, getdents, getdents64,
+        chdir, set_tid_address, set_robust_list
+    }
 } USE pwn DEFAULT KILL
