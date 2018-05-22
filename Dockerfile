@@ -18,7 +18,13 @@ FROM phusion/baseimage:0.9.22
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-RUN apt-get update && apt-get install -y wget netbase bison flex tcpdump make && apt-get build-dep -y xinetd && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+RUN apt-get update && apt-get install -y --no-install-recommends wget netbase tcpdump make && \
+    apt-get install -s "xinetd" \
+      | sed -n \
+        -e "/^Inst xinetd /d" \
+        -e 's/^Inst \([^ ]\+\) .*$/\1/p' \
+      | xargs apt-get install -y --no-install-recommends && \
+      apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 COPY --from=build-stage /opt/xinetd /opt/xinetd
 
