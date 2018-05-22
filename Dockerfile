@@ -18,17 +18,11 @@ FROM phusion/baseimage:0.9.22
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-RUN apt-get update && apt-get install -y --no-install-recommends wget netbase tcpdump make && \
-    apt-get install -s "xinetd" \
-      | sed -n \
-        -e "/^Inst xinetd /d" \
-        -e 's/^Inst \([^ ]\+\) .*$/\1/p' \
-      | xargs apt-get install -y --no-install-recommends && \
-      apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+RUN apt-get update && apt-get install -y --no-install-recommends wget netbase tcpdump xinetd && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /etc/xinetd.d/*
 
-COPY --from=build-stage /opt/xinetd /opt/xinetd
+COPY --from=build-stage /opt/xinetd/xinetd/xinetd /usr/sbin/xinetd
 
-RUN cd /opt/xinetd && make install && cd /opt && rm -fr xinetd
 
 ADD xinetd.conf /etc/xinetd.conf
 ADD pwn.kafel /etc/pwn.kafel
