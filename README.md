@@ -4,7 +4,7 @@ A docker image to hold pwn challenges in ctf war
 # Introduction
 This image contains xinetd to provide remote access services for pwn challenges, and also contains tcpdump to dump network traffics into pcap file.
 
-Notice: we use a modified xinetd version from our team to restrict syscalls called by xinetd services. In order to use this feature, docker container must run with `--privileged` option.
+Notice: we use a modified xinetd version from our team to restrict syscalls called by xinetd services. ~~In order to use this feature, docker container must run with `--privileged` option.~~ No more `--privileged` needed now.
 
 
 # Usage
