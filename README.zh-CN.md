@@ -5,7 +5,7 @@
 这个镜像中包括了运行PWN题目的xinetd服务和用于记录流量的tcpdump服务。
 
 注意: 我们使用了修改版的[xinetd](https://github.com/Asuri-Team/xinetd-kafel). 在这个版本的xinetd中，可以很方便的限制服务所可以调用的系统调用。
-为了使用这一功能，在开启docker容器的时候必须添加`--privileged`选项。
+~~为了使用这一功能，在开启docker容器的时候必须添加`--privileged`选项。~~现已无需`--privileged`选项。
 
 # 用法
 查看Dockerfile.example了解更多
