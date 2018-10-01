@@ -34,3 +34,4 @@ RUN chmod +x /etc/service/xinetd/run && chmod +x /etc/service/tcpdump/run
 
 ADD ctf.xinetd.example /etc/xinetd.d/ctf
 
+VOLUME /var/lib/tcpdump
